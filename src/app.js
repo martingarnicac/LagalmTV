@@ -2,11 +2,14 @@ import express from 'express';
 import morgan from 'morgan';
 import pkg from '../package.json';
 
+import videoRoutes from './routes/video.routes';
+
 const app = express();
 
 app.set('pkg', pkg)
 
 app.use(morgan('dev'));
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.json({
@@ -16,5 +19,7 @@ app.get('/', (req, res) => {
         version: app.get('pkg').version
     })
 });
+
+app.use('/videos', videoRoutes)
 
 export default app;
